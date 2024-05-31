@@ -21,10 +21,11 @@ public class UsuariosTest {
     @BeforeEach
     public void setup() {
         usuario = new Usuario();
-        usuario.setUsername("Mauricio");
+        usuario.setName("Mauricio Chaves");
+        usuario.setUsername("mfchaves");
         usuario.setPassword("12345");
         usuario.setRole(Usuario.Role.ROLE_USUARIO);
-        usuario.setCriadoPor("Mauricio");
+        usuario.setCriadoPor("mfchaves");
         usuario.setDataCriacao(null);
         usuario.setDataModificacao(null);
         usuario.setModificadoPor(null);
@@ -34,10 +35,11 @@ public class UsuariosTest {
     public void testSerializeUsuario() throws IOException {
         String content = """
                 {"id":null,
-                "username":"Mauricio",
+                "name":"Mauricio Chaves",
+                "username":"mfchaves",
                 "password":"12345",
                 "role":"ROLE_USUARIO",
-                "criadoPor":"Mauricio",
+                "criadoPor":"mfchaves",
                 "dataCriacao": null,
                 "dataModificacao": null,
                 "modificadoPor": null}""";
@@ -48,7 +50,8 @@ public class UsuariosTest {
     public void testDeserializeUsuario() throws IOException {
         String content = """
                 {"id":null,
-                "username":"Mauricio",
+                "name":"Mauricio Chaves",
+                "username":"mfchaves",
                 "password":"12345",
                 "role":"ROLE_USUARIO",
                 "criadoPor":"Mauricio",
