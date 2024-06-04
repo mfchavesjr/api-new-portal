@@ -25,4 +25,11 @@ public class UsuarioService {
                         () -> new EntityNotFoundException(String.format("Usuário id=%s não encontrado", id))
                 );
     }
+
+    @Transactional
+    public Usuario updatePassword(Long id, String password) {
+        Usuario user = findById(id);
+        user.setPassword(password);
+        return usuarioRepository.save(user);
+    }
 }

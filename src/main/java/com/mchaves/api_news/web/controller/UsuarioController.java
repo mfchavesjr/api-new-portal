@@ -31,4 +31,10 @@ public class UsuarioController {
                 .toUri();
         return ResponseEntity.created(locationOfNewUsuario).body(user);
     }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Usuario> updatePassword(@PathVariable Long id, @RequestBody Usuario usuario){
+        Usuario user = usuarioService.updatePassword(id,usuario.getPassword());
+        return ResponseEntity.ok().body(user);
+    }
 }
