@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -15,6 +16,12 @@ import java.net.URI;
 public class UsuarioController {
 
     private final UsuarioService usuarioService;
+
+    @GetMapping
+    public ResponseEntity<List<Usuario>> getAll(){
+        List<Usuario> users = usuarioService.gelAll();
+        return ResponseEntity.ok().body(users);
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Usuario> getById(@PathVariable Long id){

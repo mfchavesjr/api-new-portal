@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class UsuarioService {
@@ -31,5 +33,10 @@ public class UsuarioService {
         Usuario user = findById(id);
         user.setPassword(password);
         return usuarioRepository.save(user);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Usuario> gelAll() {
+        return usuarioRepository.findAll();
     }
 }
