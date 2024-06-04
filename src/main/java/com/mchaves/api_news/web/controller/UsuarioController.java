@@ -2,6 +2,9 @@ package com.mchaves.api_news.web.controller;
 
 import com.mchaves.api_news.entity.Usuario;
 import com.mchaves.api_news.service.UsuarioService;
+import com.mchaves.api_news.web.dto.UsuarioCreateDto;
+import com.mchaves.api_news.web.dto.UsuarioResponseDto;
+import com.mchaves.api_news.web.dto.mapper.UsuarioMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,13 +33,13 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public ResponseEntity<Usuario> create(@RequestBody Usuario usuario, UriComponentsBuilder ucb) {
-        Usuario user = usuarioService.save(usuario);
+    public ResponseEntity<UsuarioResponseDto> create(@RequestBody UsuarioCreateDto createDto, UriComponentsBuilder ucb) {
+        Usuario user = usuarioService.save(UsuarioMapper.toUsuario(createDto));
         URI locationOfNewUsuario = ucb
                 .path("usuarios/{id}")
                 .buildAndExpand(user.getId())
                 .toUri();
-        return ResponseEntity.created(locationOfNewUsuario).body(user);
+        return ResponseEntity.created(locationOfNewUsuario).body(UsuarioMapper.toDto(user));
     }
 
     @PatchMapping("/{id}")
