@@ -28,15 +28,22 @@ public class UsuarioService {
                 );
     }
 
-    @Transactional
-    public Usuario updatePassword(Long id, String password) {
-        Usuario user = findById(id);
-        user.setPassword(password);
-        return usuarioRepository.save(user);
-    }
-
     @Transactional(readOnly = true)
     public List<Usuario> gelAll() {
         return usuarioRepository.findAll();
+    }
+
+    @Transactional
+    public Usuario updatePassword(Long id, String senhaAtual, String novaSenha, String confirmaSenha) {
+
+        if (!novaSenha.equals(confirmaSenha)) {
+            throw new RuntimeException("Nova senha não confere com a de confirmação");
+        }
+        Usuario user = findById(id);
+        if (!senhaAtual.equals(user.getPassword())) {
+            throw new RuntimeException("Senhas não conferem");
+        }
+        user.setPassword(novaSenha);
+        return user;
     }
 }
